@@ -11,5 +11,13 @@ export default defineConfig({
       '@': '/src'
     }
   },
-  plugins: [vue()]
+  plugins: [vue()],
+  css: {
+    devSourcemap: false,
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true
+      }
+    }
+  }
 })

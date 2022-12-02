@@ -9,27 +9,27 @@ const basicRoutes: Array<RouteRecordRaw> = [
   {
     path: '/xhr',
     name: 'Xhr',
-    component: () => import('@/pages/xhr.vue')
+    component: () => import('@/pages/xhr/xhr.vue')
   },
   {
     path: '/fetch',
     name: 'Fetch',
-    component: () => import('@/pages/fetch.vue')
+    component: () => import('@/pages/fetch/fetch.vue')
   },
   {
     path: '/websocket',
     name: 'WebSocket',
-    component: () => import('@/pages/websocket.vue')
+    component: () => import('@/pages/websocket/websocket.vue')
   },
   {
     path: '/longpolling',
     name: 'LongPolling',
-    component: () => import('@/pages/longpolling.vue')
+    component: () => import('@/pages/longPolling/longpolling.vue')
   },
   {
     path: '/sse',
     name: 'SSE',
-    component: () => import('@/pages/serverSentEvent.vue')
+    component: () => import('@/pages/sse/serverSentEvent.vue')
   }
 ]
 

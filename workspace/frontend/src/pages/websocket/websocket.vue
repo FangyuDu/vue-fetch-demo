@@ -1,16 +1,22 @@
 <template lang="pug">
-textarea(style="display:block; min-height: 100px; width: 100%;", v-model="message")
+textarea(style="display:block; min-height: 100px; width: 100%;", v-model="message", @keypress.enter="sendData")
 button(@click="sendData") 发送数据
+button.ml-5(@click="() => !isActive ? resume() : pause()") 持续发送并响应消息
+  span {{ !isActive ? '▶️' : '⏸️' }}
 hr.
 .log
   .msg(v-for="(item, index) in msgList")
-    time.timestamp {{ item.time }}
-    span {{ item.msg }}
+    p.timestamp.text-center {{ item.time}}
+    .msg__receive.text-left(v-if="item.type === 'receive'")
+      span 【收到消息】{{ item.msg }}
+    .msg__send.text-right(v-else)
+      span {{ item.msg }}
 hr.
 </template>
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import dayjs from 'dayjs'
+import { useIntervalFn } from '@vueuse/core'
 
 const ws = new WebSocket(`ws://localhost:3001`)
 
@@ -23,7 +29,8 @@ ws.onmessage = e => {
     console.log('WebSocket onmessage', data)
     msgList.value.push({
       time: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-      msg: data.msg
+      msg: data.msg,
+      type: 'receive'
     })
   } catch (error) {
     console.log('WebSocket onmessage error', error)
@@ -34,16 +41,16 @@ ws.onclose = () => {
   console.log('WebSocket onclose')
 }
 
-const message = ref<string>('')
+const message = ref<string>('试试输入内容并发送。')
 
-const msgList = ref<{ time: string; msg: string }[]>([])
+const msgList = ref<{ time: string; msg: string; type?: string }[]>([])
 
 const sendData = async () => {
   const data = {
     time: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     msg: message.value
   }
-  msgList.value.push(data)
+  msgList.value.push({ ...data, type: 'send' })
   message.value = ''
   ws.send(data.msg)
 }
@@ -53,22 +60,22 @@ onBeforeUnmount(() => {
 })
 
 let times = 0
-onMounted(() => {
-  setInterval(() => {
+
+const { pause, resume, isActive } = useIntervalFn(
+  () => {
     ws.send(`新的待办消息- ${times++}`)
-  }, 10 * 1e3)
-})
+  },
+  2 * 1e3,
+  {
+    immediate: false
+  }
+)
 </script>
 <style lang="less" scoped>
 .log {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   max-height: 500px;
   overflow: auto;
   .msg {
-    display: flex;
-    align-items: flex-start;
     .timestamp {
       color: #999;
       margin-right: 10px;
