@@ -1,5 +1,5 @@
 <template lang="pug">
-.page
+.page.max-w-7xl.mx-auto.px-4
   .list__item(v-for="({title, items}, index) in sections" :key="index")
     h2.list__title {{title}}
     .grid.grid-cols-3.list-sub
@@ -7,13 +7,6 @@
         template(v-if="to")
           span.list-sub__link: router-link(:to="to") {{ subTitle }}
         span.text-disabled(v-else) {{ subTitle }}
-  //- .list__item
-    h2.list__title XHR/Axios
-    .grid.grid-cols-3.list-sub
-      .list-sub__item.p-2(v-for="({ to, title }, index) in XHRItems" :key="index")
-        template(v-if="to")
-          span.list-sub__link: router-link(:to="to") {{ title }}
-        span.text-disabled(v-else) {{ title }}
 </template>
 <script setup lang="ts">
 const baseItem = [
@@ -25,8 +18,8 @@ const baseItem = [
 ]
 
 const XHRItems = [
-  { title: '传参请求' },
-  { title: '表单传参' },
+  { to: { path: '/xhr', hash: '#withParams' }, title: '传参请求' },
+  { to: { path: '/xhr', hash: '#dataForm' }, title: '表单传参' },
   { title: '上传文件' },
   { title: 'Axios Cancel' },
   { title: '拦截器' },

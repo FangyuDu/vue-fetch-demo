@@ -5,16 +5,14 @@ import bodyParser from 'koa-bodyparser'
 import cors from '@koa/cors'
 import { PassThrough } from 'stream'
 
+import xhrRouter from './xhr/index.js'
+
 // websocket
 import websockify from 'koa-websocket'
 
 const app = new Koa()
 
 const router_1 = new Router()
-// 普通接口
-router_1.get('/fetchJSON', (ctx, next) => {
-  ctx.body = { message: 'Hello World!' }
-})
 
 // 长轮询接口
 router_1.get('/fetchLongPolling', async (ctx, next) => {
@@ -59,9 +57,12 @@ router_1.get('/fetchEventSource', async (ctx, next) => {
 })
 
 const rootRouter = new Router()
+
+rootRouter.use('/api', xhrRouter.routes(), xhrRouter.allowedMethods())
 rootRouter.use('/api', router_1.routes(), router_1.allowedMethods())
 
 app.use(cors())
+app.use(bodyParser())
 app.use(rootRouter.routes()).use(rootRouter.allowedMethods())
 
 // ws

@@ -3,7 +3,7 @@
 
 <template lang="pug">
 nav.nav
-  ul
+  ul.max-w-7xl.mx-auto.px-4
     li
       router-link(to="/") 首页
     li
@@ -18,18 +18,27 @@ nav.nav
     //- 服务端推送
     li
       router-link(to="/sse") 服务端推送SSE
-hr.
 router-view.
 </template>
 
-<style scoped>
+<style lang="less" scoped>
+.nav {
+  // sticky
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  line-height: 50px;
+}
 .nav ul {
   display: flex;
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 .nav li {
   margin-right: 30px;
+  :deep(.router-link-active) {
+    color: var(--blue);
+  }
 }
 </style>
