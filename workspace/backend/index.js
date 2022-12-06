@@ -4,8 +4,13 @@ import Router from 'koa-router'
 import bodyParser from 'koa-bodyparser'
 import cors from '@koa/cors'
 import { PassThrough } from 'stream'
-
+import { koaBody } from 'koa-body'
 import xhrRouter from './xhr/index.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // websocket
 import websockify from 'koa-websocket'

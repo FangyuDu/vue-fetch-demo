@@ -13,13 +13,15 @@
       span 原生xhr获取数据
     pre.log.mb-5 {{ xhrData }}
   WithParams#withParams.
-  DataForm#dataForm
+  DataForm#dataForm.
+  FileUpload#fileUpload.
 </template>
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import axios from 'axios'
 import WithParams from './components/withParams.vue'
 import DataForm from './components/dataForm.vue'
+import FileUpload from './components/fileUpload.vue'
 import { useRoute } from 'vue-router'
 
 const data = ref<any>({})
