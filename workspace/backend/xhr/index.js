@@ -1,9 +1,9 @@
 import Router from 'koa-router'
 import resPack from '../utils/resPack.js'
-import { koaBody } from 'koa-body';
+import { koaBody } from 'koa-body'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import fs from 'fs'
+import fse from 'fs-extra'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -32,28 +32,42 @@ xhrRouter.post('/fetchForm', (ctx, next) => {
 })
 
 // 文件上传接口
-xhrRouter.post('/fetchUpload', koaBody({
-  multipart: true,
-  formidable: {
-    uploadDir: path.join(__dirname, '../public/uploads'),
-    keepExtensions: true,
-    onFileBegin: (name, file) => {
-      // 文件上传前的设置
-      console.log(`name: ${name}`)
-      console.log(file)
+xhrRouter.post(
+  '/fetchUpload',
+  koaBody({
+    multipart: true,
+    formidable: {
+      uploadDir: path.join(__dirname, '../uploads'),
+      keepExtensions: true,
+      onFileBegin: (name, file) => {
+        // 确保上传目录存在
+        fse.ensureDirSync(path.join(__dirname, '../uploads'))
+      }
     }
+  }),
+  (ctx, next) => {
+    // 获取上传的文件
+    const { files } = ctx.request
+    const { file } = files
+    // 返回文件信息
+    ctx.body = resPack.success({ message: `文件上传成功!` })
   }
-}), (ctx, next) => {
-  // 获取上传的文件
-  const { files } = ctx.request
-  const { file } = files
-  // 打印文件信息
-  console.log(file)
-  // 读取文件内容
-  // const fileContent = fs.readFileSync(file.path, { encoding: 'utf-8' })
+)
 
-  // 返回文件信息
-  ctx.body = resPack.success({ message: `文件上传成功!` })
+// Axios Cancel
+xhrRouter.get('/axiosCancel', async (ctx, next) => {
+  // 模拟请求耗时
+  ctx.body = await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(resPack.success({ message: `Hello World!` }))
+    }, 30 * 1e3)
+  })
+})
+
+// 模拟 401 接口
+xhrRouter.get('/fetch401', (ctx, next) => {
+  ctx.status = 401
+  ctx.body = resPack.error({ message: `未授权!` })
 })
 
 export default xhrRouter

@@ -20,11 +20,11 @@ const baseItem = [
 const XHRItems = [
   { to: { path: '/xhr', hash: '#withParams' }, title: '传参请求' },
   { to: { path: '/xhr', hash: '#dataForm' }, title: '表单传参' },
-  { title: '上传文件' },
-  { title: 'Axios Cancel' },
-  { title: '拦截器' },
-  { title: '覆盖默认配置' },
-  { title: '队列请求' }
+  { to: { path: '/xhr', hash: '#fileUpload' }, title: '上传文件' },
+  { to: { path: '/xhr', hash: '#axiosCancel' }, title: 'Axios Cancel' },
+  { to: { path: '/xhr', hash: '#interceptors' }, title: '拦截器' },
+  { to: { path: '/xhr', hash: '#overwrite' }, title: '覆盖默认配置' },
+  { to: { path: '/xhr', hash: '#sequenceQuery' }, title: '队列请求' }
 ]
 
 const FetchItems = [

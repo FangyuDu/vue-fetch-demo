@@ -49,13 +49,13 @@ http://localhost:3000
 - [x] Server-Sent Events
 
 ### 2. XHR/Axios
-- [ ] 传参请求
-- [ ] 表单传参
-- [ ] 上传文件
-- [ ] Axios Cancel
-- [ ] 拦截器
-- [ ] 覆盖默认配置
-- [ ] 队列请求
+- [x] 传参请求
+- [x] 表单传参
+- [x] 上传文件
+- [x] Axios Cancel
+- [x] 拦截器
+- [x] 覆盖默认配置
+- [x] 队列请求
 
 ### 3. Fetch
 - [ ] 传参请求

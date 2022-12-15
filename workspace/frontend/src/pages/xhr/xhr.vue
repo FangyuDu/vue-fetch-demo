@@ -15,6 +15,10 @@
   WithParams#withParams.
   DataForm#dataForm.
   FileUpload#fileUpload.
+  AxiosCancel#axiosCancel.
+  Interceptors#interceptors.
+  Overwrite#overwrite.
+  SequenceQuery#sequenceQuery.
 </template>
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
@@ -22,6 +26,10 @@ import axios from 'axios'
 import WithParams from './components/withParams.vue'
 import DataForm from './components/dataForm.vue'
 import FileUpload from './components/fileUpload.vue'
+import AxiosCancel from './components/axiosCancel.vue'
+import Interceptors from './components/interceptors.vue'
+import Overwrite from './components/overwrite.vue'
+import SequenceQuery from './components/sequenceQuery.vue'
 import { useRoute } from 'vue-router'
 
 const data = ref<any>({})

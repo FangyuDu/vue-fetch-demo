@@ -1,1 +1,4 @@
 node_modules
+
+# git 排除 uploads 目录下的所有文件
+workspace/backend/uploads/*
