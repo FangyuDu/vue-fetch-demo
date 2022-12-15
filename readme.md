@@ -58,10 +58,10 @@ http://localhost:3000
 - [x] 队列请求
 
 ### 3. Fetch
-- [ ] 传参请求
-- [ ] 表单传参
-- [ ] 上传文件
-- [ ] Fetch Cancel
+- [x] 传参请求
+- [x] 表单传参
+- [x] 上传文件
+- [x] Fetch Cancel
 
 ### 4. Websocket
 - [ ] 多个连接
