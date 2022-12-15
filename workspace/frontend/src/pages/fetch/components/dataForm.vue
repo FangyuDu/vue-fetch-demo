@@ -13,7 +13,6 @@ section.list__item
   pre.log.mb-5 {{ data }}
 </template>
 <script setup lang="ts">
-import axios from 'axios'
 import { reactive, ref } from 'vue'
 
 // params
@@ -23,25 +22,26 @@ const query = reactive({
 
 const data = ref<any>({})
 
+// TODO 待优化
 const fetchDataWithParams = async () => {
+  const api = 'http://localhost:3001/api/fetchForm'
+  // form
+  const reqParams = new FormData()
+  reqParams.append('username', query.username)
+
+  // form 格式化
+  const params = new URLSearchParams()
+  for (const [key, value] of reqParams as any) {
+    params.append(key, value)
+  }
   // 表单接口
-  const res = await axios('http://localhost:3001/api/fetchForm', {
-    method: 'post',
+  const res = await fetch(api, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    transformRequest: [
-      function(data) {
-        let ret = ''
-        for (const it in data) {
-          ret +=
-            encodeURIComponent(it) + '=' + encodeURIComponent(data[it])
-        }
-        return ret
-      }
-    ],
-    data: query
+    body: params
   })
-  data.value = res.data
+  data.value = await res.json()
 }
 </script>

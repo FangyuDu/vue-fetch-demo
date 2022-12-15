@@ -1,6 +1,6 @@
 <template lang="pug">
 section.list__item
-  h2.list__title 表单传参
+  h2.list__title 传参请求
   .mb-4
     input.p-2.border(
       v-model="query.username",
@@ -13,7 +13,6 @@ section.list__item
   pre.log.mb-5 {{ data }}
 </template>
 <script setup lang="ts">
-import axios from 'axios'
 import { reactive, ref } from 'vue'
 
 // params
@@ -24,24 +23,13 @@ const query = reactive({
 const data = ref<any>({})
 
 const fetchDataWithParams = async () => {
-  // 表单接口
-  const res = await axios('http://localhost:3001/api/fetchForm', {
-    method: 'post',
+  const res = await fetch('http://localhost:3001/api/fetchJSON3', {
+    method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/json'
     },
-    transformRequest: [
-      function(data) {
-        let ret = ''
-        for (const it in data) {
-          ret +=
-            encodeURIComponent(it) + '=' + encodeURIComponent(data[it])
-        }
-        return ret
-      }
-    ],
-    data: query
+    body: JSON.stringify(query)
   })
-  data.value = res.data
+  data.value = await res.json()
 }
 </script>

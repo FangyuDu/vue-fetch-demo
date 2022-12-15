@@ -20,7 +20,7 @@ const fetchAxiosCancel = async () => {
   loading.value = true
   // 期望 30s 后返回数据
   try {
-    const res = await axios('http://localhost:3001/api/axiosCancel', {
+    const res = await axios('http://localhost:3001/api/turtleFetch', {
       cancelToken: source.token
     })
     data.value = res.data

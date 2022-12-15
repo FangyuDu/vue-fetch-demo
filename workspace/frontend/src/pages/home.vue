@@ -28,10 +28,10 @@ const XHRItems = [
 ]
 
 const FetchItems = [
-  { title: '传参请求' },
-  { title: '表单传参' },
-  { title: '上传文件' },
-  { title: 'Fetch Cancel' }
+  { to: { path: '/fetch', hash: '#withParams' }, title: '传参请求' },
+  { to: { path: '/fetch', hash: '#dataForm' }, title: '表单传参' },
+  { to: { path: '/fetch', hash: '#fileUpload' }, title: '上传文件' },
+  { to: { path: '/fetch', hash: '#fetchCancel' }, title: 'Fetch Cancel' }
 ]
 
 const WebsocketItems = [

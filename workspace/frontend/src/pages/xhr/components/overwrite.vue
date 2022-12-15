@@ -24,7 +24,7 @@ const fetchAxiosCancel = async () => {
   loading_1.value = true
   // 期望 30s 后返回数据
   try {
-    const res = await _localFetch('/axiosCancel', {
+    const res = await _localFetch('/turtleFetch', {
       timeout: 31 * 1e3
     })
     data.value = res.data
@@ -41,7 +41,7 @@ const defaultFetch = async () => {
   loading_2.value = true
   // 期望 30s 后返回数据
   try {
-    const res = await _localFetch('/axiosCancel')
+    const res = await _localFetch('/turtleFetch')
     data.value = res.data
   } catch (error) {
     console.log(error)

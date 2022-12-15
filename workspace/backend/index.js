@@ -17,6 +17,9 @@ import websockify from 'koa-websocket'
 
 const app = new Koa()
 
+app.use(cors())
+app.use(bodyParser())
+
 const router_1 = new Router()
 
 // 长轮询接口
@@ -66,8 +69,6 @@ const rootRouter = new Router()
 rootRouter.use('/api', xhrRouter.routes(), xhrRouter.allowedMethods())
 rootRouter.use('/api', router_1.routes(), router_1.allowedMethods())
 
-app.use(cors())
-app.use(bodyParser())
 app.use(rootRouter.routes()).use(rootRouter.allowedMethods())
 
 // ws

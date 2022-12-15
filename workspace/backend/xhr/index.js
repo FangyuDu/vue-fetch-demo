@@ -23,10 +23,19 @@ xhrRouter.get('/fetchJSON2', (ctx, next) => {
   ctx.body = resPack.success({ message: `Hello ${username}!` })
 })
 
+// 带参数的普通接口
+xhrRouter.post('/fetchJSON3', (ctx, next) => {
+  // 获取请求参数
+  const { body } = ctx.request
+  const { username = '默认用户名' } = body
+  ctx.body = resPack.success({ message: `Hello ${username}!` })
+})
+
 // 表单形式的接口
 xhrRouter.post('/fetchForm', (ctx, next) => {
   // 获取表单中的参数
   const { body } = ctx.request
+  console.log('ctx.request', ctx.request)
   const { username = '默认用户名' } = body
   ctx.body = resPack.success({ message: `Hello ${username}!` })
 })
@@ -55,7 +64,7 @@ xhrRouter.post(
 )
 
 // Axios Cancel
-xhrRouter.get('/axiosCancel', async (ctx, next) => {
+xhrRouter.get('/turtleFetch', async (ctx, next) => {
   // 模拟请求耗时
   ctx.body = await new Promise((resolve, reject) => {
     setTimeout(() => {
