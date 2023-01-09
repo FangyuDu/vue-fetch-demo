@@ -47,11 +47,12 @@ const SSEItems = [{ title: '传参请求' }]
 
 // 综合
 const OtherItems = [
+  { to: { path: '/graphql'}, title: 'GraphQL' },
   { title: '分片上传' },
   { title: '断点续传' }
 ]
 
-const sections = [
+const sections: { title: string, items: any[]}[] = [
   {
     title: '基础请求',
     items: baseItem

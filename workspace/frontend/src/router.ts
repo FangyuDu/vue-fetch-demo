@@ -30,6 +30,11 @@ const basicRoutes: Array<RouteRecordRaw> = [
     path: '/sse',
     name: 'SSE',
     component: () => import('@/pages/sse/serverSentEvent.vue')
+  },
+  {
+    path: '/graphql',
+    name: 'GraphQL',
+    component: () => import('@/pages/graphQL/index.vue')
   }
 ]
 

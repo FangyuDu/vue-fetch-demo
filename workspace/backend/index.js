@@ -1,5 +1,7 @@
 import chalk from 'chalk'
 import Koa from 'koa'
+import mount from 'koa-mount'
+import { graphqlHTTP } from 'koa-graphql'
 import Router from 'koa-router'
 import bodyParser from 'koa-bodyparser'
 import cors from '@koa/cors'
@@ -8,6 +10,7 @@ import { koaBody } from 'koa-body'
 import xhrRouter from './xhr/index.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import rootValue, { schemaRoot } from './graphql/schema.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -83,6 +86,18 @@ wss.ws.use((ctx, next) => {
     )
   })
 })
+
+// graphql
+app.use(
+  mount(
+    '/graphql',
+    graphqlHTTP({
+      schema: schemaRoot,
+      rootValue: rootValue,
+      graphiql: true
+    })
+  )
+)
 
 app.listen(3001, () => {
   console.log(chalk.green('Server is running on port 3001'))
