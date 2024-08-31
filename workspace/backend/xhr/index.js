@@ -12,7 +12,9 @@ const xhrRouter = new Router()
 
 // 普通接口
 xhrRouter.get('/fetchJSON', (ctx, next) => {
-  ctx.body = resPack.success({ message: `Hello World!` })
+  /// set-cookie expire in 1 hour
+  // ctx.set('Set-Cookie', 'token=123456; Max-Age=3600; Path=/; HttpOnly')
+  ctx.body = resPack.success({ message: `Hello World!`, data: {x: '1111'} })
 })
 
 // 带参数的普通接口
@@ -28,6 +30,8 @@ xhrRouter.post('/fetchJSON3', (ctx, next) => {
   // 获取请求参数
   const { body } = ctx.request
   const { username = '默认用户名' } = body
+  /// set-cookie expires
+  ctx.set('Set-Cookie', 'token=123456; Max-Age=3600; Path=/; HttpOnly')
   ctx.body = resPack.success({ message: `Hello ${username}!` })
 })
 

@@ -8,8 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "chalk": "^5.1.2"
-  }
+  "license": "ISC"
 }
